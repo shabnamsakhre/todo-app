@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
+import { toast } from "react-toastify";
 
 const Create = (props) => {
   const todos = props.todos;
@@ -15,6 +16,8 @@ const Create = (props) => {
   const submitHandler = (data) => {
     data.id = nanoid();
     setTodos([...todos, data]);
+
+    toast.success("Todo Created !!!");
 
     reset();
   };

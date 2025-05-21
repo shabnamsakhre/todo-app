@@ -1,19 +1,22 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
 
 const Create = (props) => {
   const todos = props.todos;
   const setTodos = props.setTodos;
 
-  const [title, setTitle] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = (data) => {
+    data.id = nanoid();
+    setTodos([...todos, data]);
 
-    let newTodo = { id: nanoid(), title };
-    setTodos([...todos, newTodo]);
-
-    setTitle("");
+    reset();
   };
 
   return (
@@ -22,16 +25,16 @@ const Create = (props) => {
         Set <span className="text-red-400">Remainder</span> for <br />
         Tasks
       </h1>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={handleSubmit(submitHandler)}>
         <input
-          className="w-full border-b outline-0 px-3 py-2 text-2xl mb-10"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
+          className="w-full border-b outline-0 px-3 py-2 text-2xl"
+          {...register("title", { required: "Title can not be empty" })}
           type="text"
           placeholder="Title"
         />
+        <span className="text-red-400">{errors?.title?.message}</span>
         <br />
-        <button className="text-xl border px-10 py-3 rounded active:scale-95 cursor-pointer">
+        <button className="text-xl border mt-10 px-10 py-3 rounded active:scale-95 cursor-pointer">
           Create Todo
         </button>
       </form>

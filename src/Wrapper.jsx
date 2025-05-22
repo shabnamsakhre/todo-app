@@ -1,5 +1,5 @@
 const Wrapper = (props) => {
-  return props.App;
+  return props.children;
 };
 
 export default Wrapper;

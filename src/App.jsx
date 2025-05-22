@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Create from "./components/Create";
 import Read from "./components/Read";
 import "./index.css";
+import { todoContext } from "./Wrapper";
 
 const App = () => {
-  const [todos, setTodos] = useState([{ id: 1, title: "Kaam kr le bhai" }]);
+  const [todos, setTodos] = useContext(todoContext);
 
   return (
     <div className="w-screen h-screen bg-gray-800 text-white p-10 flex">

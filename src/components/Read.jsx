@@ -4,6 +4,7 @@ import { todoContext } from "../Wrapper";
 
 const Read = () => {
   const [todos, setTodos] = useContext(todoContext);
+  console.log(todos.length);
 
   const deleteHandler = (id) => {
     const filterTodo = todos.filter((todo) => todo.id !== id);
@@ -34,7 +35,7 @@ const Read = () => {
       <h1 className="text-6xl font-thin mb-10">
         <span className="text-pink-400">Pending</span> Task
       </h1>
-      <ol>{renderTodo}</ol>
+      <ol>{todos.length > 0 ? renderTodo : "No Pending Task...🎉"}</ol>
     </div>
   );
 };
